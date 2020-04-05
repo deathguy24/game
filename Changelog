@@ -1,0 +1,38 @@
+V0.1
+Added slime, upgrades, save files, help menu, shop, money, and display info.
+
+V0.2
+Added healing potions and a wooden bow.
+
+V0.3
+Added armor upgrades, zombie, and monster index.
+
+V0.4
+Added skeleton & mage, implemented levelling and exp system, implemented critical and dodge chances, implemented new health system.
+
+V0.5
+Extensive bug fixes, including savefiles not being saved properly and infinite health.
+
+V0.6
+Added Polly, Slime, and Gold pets.
+
+V0.7 
+Added 18 digits to the savable info
+
+V0.8
+Added pet levelling, base code for evolution, wooden wand, and rebalanced stats.
+
+V0.9
+Added over 20 new enemies, plus base code for enemy abilities, and evolution keys.
+
+V0.10
+A ton of bug fixes
+
+V0.11 
+Fixed bugs, can now evolve slime & polly. 
+
+V0.12 
+Polly evolutions now function. Cleaned up code and fixed bugs.
+
+V0.13
+Slime evolutions!

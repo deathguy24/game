@@ -1,0 +1,26 @@
+slot10[0] = 0 : None
+slot10[0] = 1 : Fire
+slot10[0] = 2 : Ice
+slot10[0] = 3 : Molten
+slot10[0] = 4 : Frozen
+slot10[0] = 5 : Inferno
+slot10[0] = 6 : Frostburn
+slot10[0] = 7 : Pyro
+slot10[0] = 8 : Cyro
+
+Fire Class - Instakill an enemy every few turns
+Ice Class - Block an attack every few turns
+
+slot12[0] = 0 : None
+slot12[0] = 1 : Shrike
+slot12[0] = 2 : Crow
+slot12[0] = 3 : Owl
+slot12[0] = 4 : Raven
+slot12[0] = 5 : Hawk
+slot12[0] = 6 : Gull
+slot12[0] = 7 : Eagle
+slot12[0] = 8 : Vulture
+
+Predator Class - 1 extra damage per attack per evolution level
+Carrion Class - .5x experience added to the boost per evolution level
+
