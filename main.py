@@ -1,4 +1,4 @@
-
+ 
 #Basic Setup
 import random
 dungeon_level = 1
@@ -12,6 +12,8 @@ pcrit = 0
 moves = 1
 item_bought = False
 enemy_attack = True
+enemies_killed = 0
+instak = False
 
 #Inventory Setup
 slot1 = [0,0,0] #Weapon, Strength Upgrades
@@ -32,7 +34,8 @@ slot15 = [0,0,0]
 
 #Savefile Interpretation
 savecode = []
-save = input('Savefile (if you just started, enter 0): ')
+print('Savefile (if you just started, enter 0): ')
+save = input()
 if save == 'debug' or save == 'googl':
   save = '999999999999111399919999999899899899'
   debug = True
@@ -99,9 +102,9 @@ while playing:
   print()
   if not enemy_spawned:
     enemy_pick = random.randint(1,4)
-    if moves % 20 == 0:
+    if enemies_killed % 10 == 0 and enemies_killed != 0:
       enemy_pick = 5
-    if level > 0 and level < 11:
+    if level > 0 and level < 11:  
       if enemy_pick == 1:
         print("A slime has appeared! It has 4 health.")
         enemy_health = 4
@@ -139,7 +142,7 @@ while playing:
         enemy_drop = 4
         enemy_xp = 3
         dodge_chance = 1
-        crit_chance = 5
+        crit_chance = 3
         e_slime = True
         enemy_ability = 0
       if enemy_pick == 5:
@@ -296,7 +299,7 @@ while playing:
         e_slime = False
         enemy_ability = 0
       if enemy_pick == 5:
-        print("An infuriated spirit has appeared! It has 45 health.")
+        print("An enfuriated spirit has appeared! It has 45 health.")
         enemy_health = 45
         enemy_damage = 31
         enemy_drop = 35
@@ -460,6 +463,7 @@ while playing:
     print("use - use an item")
     print("pets - use pets")
     print("evolve - evolve a pet")
+    print("monsterindex - view monster stats")
   
   elif move == "evolve":
     if pet == 2:
@@ -551,7 +555,11 @@ while playing:
             print("That's an invalid evolution")
         else:
           print("You don't have enough evolution keys!")
-    if pet == 1:
+      elif slot10[0] < 7:
+        print("Your pet is not high enough of a level to evolve.")
+      else:
+        print("You are at the maximum evolution.")
+    elif pet == 1:
       if slot12[1]*10+slot12[2] > 24 and slot12[0] < 1:
         print("This pet will evolve to a shrike or a crow")
         print("Use one evo key? (y/n)")
@@ -636,24 +644,59 @@ while playing:
             print("You don't have enough evolution keys!")
         else:
           print("Okay")
-
+      else:
+        print("Your pet is at the maximum evolution")
+    else:
+      print("Your current pet is not supported right now.")
+  
   #Unupdated
   elif move == "monsterindex":
-    print("1 - Slime")
-    print("2 - Zombie")
-    print("3 - Skeleton")
-    print("4 - Mage")
+    print("1 - Slime Tier")
+    print("2 - Skeleton Tier")
+    print("3 - Orc Tier")
+    print("4 - Ghost Tier")
+    print("5 - Hell Tier")
+    print("Slime tier ranged units have a +3 dodge chance, and magic units have a +4 critical chance.")
+    print("Skeleton tier ranged units have a +4 dodge chance, and magic units have a +4 critical chance.")
+    print("For each tier after, ranged units have a +5 dodge chance, and magic units have a +5 critical chance.")
     print()
     mon = input()
     print()
     if mon == "1":
-      print("4 health, 1 damage, 2 xp, drops 3 coin")
+      print("Slime Tier monsters have a default dodge chance of 1 and a critical chance of 1.")
+      print("Slime - 4 health, 1 damage, 3 coins, 2 experience, normal class.")
+      print("Big Slime - 6 health, 2 damage, 4 coins, 3 experience, strong class.")
+      print("Archer Slime - 5 health, 2 damage, 4 coins, 2 experience, ranged class.")
+      print("Slime Mage - 3 health, 5 damage, 4 coins, 3 experience, magic class.")
+      print("Slime King - 11 health, 4 damage, 7 coins, 5 experience, boss class.")
     if mon == "2":
-      print("6 health, 2 damage, 3 xp, drops 4 coins")
+      print("Skeleton Tier monsters have a default dodge chance of 2 and a critical chance of 2.")
+      print("Skeleton - 9 health, 2 damage, 6 coins, 5 experience, normal class.")
+      print("Skeleton Brawler - 12 health, 4 damage, 7 coins, 6 experience, strong class.")
+      print("Skeleton Archer - 10 health, 4 damage, 8 coins, 5 experience, ranged class.")
+      print("Skeleton Necromancer - 7 health, 7 damage, 8 coins, 5 experience, magic class.")
+      print("Undead Overlord - 21 health, 6 damage, 19 coins, 8 experience, boss class.")
     if mon == "3":
-      print("5 health, 2 damage, 2 xp, drops 4 coins")
+      print("Orc Tier monsters have a default dodge chance of 3 and a critical chance of 3.")
+      print("Orc - 19 health, 11 damage, 16 coins, 11 experience, normal class.")
+      print("Orc Grunt - 20 health, 12 damage, 16 coins, 12 experience, strong class.")
+      print("Orc Crossbowman - 21 health, 12 damage, 18 coins, 14 experience, ranged class.")
+      print("Orc Hellraiser - 14 health, 16 damage, 18 coins, 14 experience, magic class.")
+      print("Orc Guardian - 34 health, 17 damage, 28 coins, 23 experience, boss class.")
     if mon == "4":
-      print("3 health, 5 damage, 3 xp, drops 4 coins")
+      print("Spirit Tier monsters have a default dodge chance of 4 and a critical chance of 4.")
+      print("Wandering Spirit - 32 health, 18 damage, 21 coins, 20 experience, normal class.")
+      print("Poltergeist - 34 health, 20 damage, 24 coins, 23 experience, strong class.")
+      print("Warrior Spirit - 31 health, 19 damage, 26 coins, 24 experience, ranged class.")
+      print("Wise Spirit - 24 health, 23 damage, 26 coins, 24 experience, magic class.")
+      print("Enfuriated Spirit - 45 health, 31 damage, 35 coins, 34 experience, boss class.")
+    if mon == "5":
+      print("Hell Tier monsters have a default dodge chance of 5 and a critical chance of 5.")
+      print("Demon - 39 health, 27 damage, 34 coins, 31 experience, normal class.")
+      print("Hellchaser - 41 health, 29 damage, 39 coins, 35 experience, strong class.")
+      print("Molten Archer - 39 health, 32 damage, 37 coins, 32 experience, ranged class.")
+      print("Archdemon - 31 health, 42 damage, 40 coins, 38 experience, magic class.")
+      print("Devil - 50 health, 40 damage, 50 coins, 50 experience, boss class.")
     
   elif move == "weapon":
     print("1 - Wooden Sword")
@@ -665,15 +708,15 @@ while playing:
     wen = input("Enter weapon number: ")
     print()
     if wen == "1":
-      slot1[0] = 0
+      slot1[0] =  0
       pcritchance = 1
     if wen == "2":
       if slot3[0] > 0:
-        slot1[0] = 2
+        slot1[0] = 1
         pcritchance = 1
     if wen == "3":
       if slot3[0] > 1:
-        slot1[0] = 3
+        slot1[0] = 2
         pcritchance = 5
 
   elif move == "shop":
@@ -752,12 +795,13 @@ while playing:
       elif (slot9[0]*100 + slot9[1]*10 + slot9[2]) < 50:
         print("You do not have enough money to buy this!")
       else:
-        slot3[0] = 1
+        slot3[0] = 2
         money = (slot9[0]*100 + slot9[1]*10 + slot9[2]) - 50
         slot9[2] = money % 10
         slot9[1] = int(((money % 100) - slot9[2])/10)
         slot9[0] = int(((money-slot9[2])/10-slot9[1])/10)
         item_bought = True
+        print("You bought the wooden wand!")
     if shop == "potion.h":
       if (slot9[0]*100 + slot9[1]*10 + slot9[2]) < 5:
         print("You do not have enough money for that!")
@@ -778,7 +822,7 @@ while playing:
         print("You already have the maximum amount of slime potions!")
       else:
         print("Potion bought!")
-        money = (slot9[0]*100 + slot9[1]*10 + slot9[2]) - 5
+        money = ((slot9[0]*100 + slot9[1]*10 + slot9[2]) - 5)
         slot9[2] = money % 10
         slot9[1] = int(((money % 100) - slot9[2])/10)
         slot9[0] = int(((money-slot9[2])/10-slot9[1])/10)
@@ -898,6 +942,7 @@ while playing:
     if pet == 2:
       if slot10[0] % 2 == 1:
         if moves % (10 - (slot10[0] + 1)/2) == 0 and moves != 0:
+          instak = True
           print("Your slime instakilled the enemy!")
           print("You gained " + str(enemy_drop) + " coins, " + str(enemy_xp) + " experience points, and your pet levelled up!")
           if pet == 2 and slime_pet_level < 99:
@@ -918,8 +963,9 @@ while playing:
               slot9[1] = slot9[1] % 10
               slot9[0] += 1
           current_xp += int(enemy_xp)
-    elif random.randint(1,10) > dodge_chance:
-      if slot1[0] == 0 or slot1[0] == 1 or slot1[0] == 9:
+          enemies_killed += 1
+    if random.randint(1,10) > dodge_chance and instak == False:
+      if slot1[0] == 0 or slot1[0] == 1 or slot1[0] == 2 or slot1[0] == 9:
         if slot1[0] == 2:
           if random.randint(0,9) < pcritchance:
             pcrit = 2
@@ -1081,6 +1127,7 @@ while playing:
     money = slot9[0]*100 + slot9[1]*10 + slot9[2]
     moves += 1
     enemy_attack = True
+    instak = False 
 
 
     #End Game
